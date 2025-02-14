@@ -6,6 +6,7 @@ import NotFoundScreen from "./utilities/404 error/PageNotFound";
 import HomeScreen from "./screens/homescreen/HomeScreen";
 import NavBar from "./common/navbar/NavBar";
 import useScrollToTop from "./utilities/scroll to/ScrollToTop";
+import MintSuccessScreen from "./screens/mintsuccesscrenn/MintSuccessScreen";
 
 function App() {
   useScrollToTop();
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="*" element={<NotFoundScreen />} />
           <Route path="/" element={<HomeScreen />}></Route>
+          <Route path="/success" element={<MintSuccessScreen />}></Route>
         </Routes>
       </div>
     </>

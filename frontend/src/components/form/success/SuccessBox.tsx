@@ -3,6 +3,8 @@ import "./styles.scss";
 import DoneIcon from "@mui/icons-material/Done";
 import logo from "../../../assets/home/logo.png";
 import s1 from "../../../assets/home/s1.png";
+import { RWebShare } from "react-web-share";
+import { pageURL } from "../../../base url/BaseUrl";
 
 function SuccessBox() {
   return (
@@ -61,10 +63,18 @@ function SuccessBox() {
           </div>
           <div className="btns a_flex">
             <div className="left">
-              <button className="main_btn l_flex">
-                <FlowbiteShareNodesSolid className="icon" />
-                <p>Share</p>
-              </button>
+              <RWebShare
+                data={{
+                  text: `share`,
+                  url: `${pageURL}/success/${"id"}`,
+                  title: "title",
+                }}
+              >
+                <button className="main_btn l_flex">
+                  <FlowbiteShareNodesSolid className="icon" />
+                  <p>Share</p>
+                </button>
+              </RWebShare>
             </div>
             <div className="right">
               <button className="main_btn l_flex">

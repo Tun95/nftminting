@@ -1,6 +1,7 @@
 import { MingcuteWallet3Fill } from "../../assets/icons/Index";
 import "./styles.scss";
 import logo from "../../assets/nav/logo.png";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
@@ -9,7 +10,10 @@ function NavBar() {
         <div className="content c_flex">
           <div className="left">
             <div className="img l_flex">
-              <img src={logo} alt="logo img" />
+              <Link to="/">
+                {" "}
+                <img src={logo} alt="logo img" />
+              </Link>
             </div>
           </div>
           <div className="right">

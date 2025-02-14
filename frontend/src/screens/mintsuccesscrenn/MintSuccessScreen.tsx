@@ -1,6 +1,6 @@
-import MintForm from "../../components/form/mintnft/MintForm";
 import { Helmet } from "react-helmet-async";
 import Intro from "../../components/mint home/intro/Intro";
+import SuccessBox from "../../components/form/success/SuccessBox";
 import Gallery from "../../common/navbar/gallery/Gallery";
 import s1 from "../../assets/home/s1.png";
 import s2 from "../../assets/home/s2.png";
@@ -10,7 +10,7 @@ const List = [
   {
     img: s1,
     title: "Cosmic Dreams #001",
-    status: "old",
+    status: "new",
     description: "A journey through digital dimensions",
   },
   {
@@ -26,16 +26,18 @@ const List = [
     description: "Where reality meets digital art",
   },
 ];
-function HomeScreen() {
+
+function MintSuccessScreen() {
   return (
     <>
       <Helmet>
-        <title>Mint NFT</title>
+        <title>Mint Success</title>
       </Helmet>
       <div className="home_screen">
         <div className="home_content">
           <Intro />
-          <MintForm />
+
+          <SuccessBox />
           <Gallery List={List} />
         </div>
       </div>
@@ -43,4 +45,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default MintSuccessScreen;

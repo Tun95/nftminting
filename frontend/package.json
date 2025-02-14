@@ -21,6 +21,7 @@
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.1.5",
     "react-toastify": "^11.0.3",
+    "react-web-share": "^2.0.2",
     "sass": "^1.85.0",
     "yup": "^1.6.1"
   },
