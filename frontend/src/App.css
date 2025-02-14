@@ -10,12 +10,13 @@
   --color-bg: #f3f5f9;
   --color-dark: #000000;
   --color-dark-bg: #1f2937;
-  --color-slight-dark-bg: #1f293780;
+  --color-slight-dark-bg: #11182780;
   --color-border: #1f2937;
   --color-dark-gray: #374151;
   --color-light-gray: #adaebc;
   --color-light-light-gray: #e5e7eb;
   --color-text: #d1d5db;
+  --color-text-dull: #9ca3af;
   --color-white: #ffffff;
   --color-red: #ff0000;
 
@@ -113,20 +114,19 @@ input {
 }
 input,
 textarea {
-  background-color: var(--color-light-light-gray);
+  background-color: var(--color-dark-bg);
 }
 
 textarea {
-  background: transparent;
   border: 1px solid var(--color-border);
   resize: none;
-
   padding: 10px;
   font-size: 15px;
   font-family: sans-serif;
   outline: none;
   width: 100%;
   border: none;
+  height: 90px;
 }
 textarea::-webkit-scrollbar {
   display: none;
@@ -157,11 +157,11 @@ select.input-error {
 input,
 button {
   outline: none;
+  border: none;
 }
 
 button {
   cursor: pointer;
-  border: none;
   background-color: none;
 }
 
@@ -175,7 +175,7 @@ button:disabled {
   color: var(--color-white);
   padding: 10px 15px;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   text-wrap: nowrap;
 }
 

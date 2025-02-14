@@ -11,7 +11,7 @@ mintingRouter.post(
   "/store",
   expressAsyncHandler(async (req, res) => {
     try {
-      const { nftName, nftDescription, nftLogoUrl, nftId, userWalletAddress } =
+      const { nftName, nftDescription, nftImageUrl, nftId, userWalletAddress } =
         req.body;
       const existingNFT = await Minting.findOne({ nftId });
       if (existingNFT) {
@@ -22,7 +22,7 @@ mintingRouter.post(
       const nft = new Minting({
         nftName,
         nftDescription,
-        nftLogoUrl,
+        nftImageUrl,
         nftId,
         userWalletAddress,
       });

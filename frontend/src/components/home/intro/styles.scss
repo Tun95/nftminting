@@ -18,6 +18,23 @@
           color: var(--color-text);
         }
       }
+
+      /*======= MEDIA QUERIES (SMALL DEVICES) =======*/
+      @media screen and (max-width: 520px) {
+        .header {
+          h1 {
+            font-size: 40px;
+          }
+        }
+      }
+      /*======= MEDIA QUERIES (SMALL DEVICES) =======*/
+      @media screen and (max-width: 380px) {
+        .header {
+          h1 {
+            font-size: 35px;
+          }
+        }
+      }
     }
     .btns {
       gap: 15px;

@@ -8,7 +8,7 @@ function NavBar() {
       <div className="container">
         <div className="content c_flex">
           <div className="left">
-            <div className="img">
+            <div className="img l_flex">
               <img src={logo} alt="logo img" />
             </div>
           </div>

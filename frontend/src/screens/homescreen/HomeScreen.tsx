@@ -1,3 +1,4 @@
+import MintForm from "../../components/form/mintnft/MintForm";
 import Intro from "../../components/home/intro/Intro";
 
 function HomeScreen() {
@@ -5,6 +6,7 @@ function HomeScreen() {
     <div className="home_screen">
       <div className="home_content">
         <Intro />
+        <MintForm />
       </div>
     </div>
   );
