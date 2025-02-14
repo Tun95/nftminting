@@ -5,8 +5,11 @@ import { Route, Routes } from "react-router-dom";
 import NotFoundScreen from "./utilities/404 error/PageNotFound";
 import HomeScreen from "./screens/homescreen/HomeScreen";
 import NavBar from "./common/navbar/NavBar";
+import useScrollToTop from "./utilities/scroll to/ScrollToTop";
 
 function App() {
+  useScrollToTop();
+
   return (
     <>
       <div className="app">

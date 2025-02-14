@@ -1,5 +1,6 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
+import Minting from "../models/nftmintingModel.js";
 
 const mintingRouter = express.Router();
 
