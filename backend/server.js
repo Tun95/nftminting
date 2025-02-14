@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import { createServer } from "http";
 import helmet from "helmet";
+import mintingRouter from "./routes/mintingRoutes.js";
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.get("/", (req, res) => {
 });
 
 //Routes
+app.use("/api/nft", mintingRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
