@@ -10,6 +10,7 @@
   --color-bg: #f3f5f9;
   --color-dark: #000000;
   --color-dark-bg: #1f2937;
+  --color-dark-light-bg: #1f293780;
   --color-slight-dark-bg: #11182780;
   --color-border: #1f2937;
   --color-dark-gray: #374151;
@@ -19,6 +20,9 @@
   --color-text-dull: #9ca3af;
   --color-white: #ffffff;
   --color-red: #ff0000;
+  --color-green: #10b981;
+  --color-light-green: #10b98133;
+  --color-purple: #8b5cf6;
 
   --container-width-lg: 85%;
   --container-width-md: 95%;
