@@ -3,6 +3,12 @@ import { Formik, ErrorMessage, Form, Field, FormikHelpers } from "formik";
 import logo from "../../../assets/home/logo.png";
 import { MintFormValues } from "../../../types/Index";
 import { mintnftSchema } from "../../../schema/Index";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
+import { contractConfig } from "../../../utilities/configs/contractConfig";
+import axios from "axios";
+import { generateUniqueId } from "../../../utilities/configs/generateUniqueId";
+import { toast } from "react-toastify";
+import { request } from "../../../base url/BaseUrl";
 
 // Initial values
 const initialValues = {
@@ -12,13 +18,57 @@ const initialValues = {
 };
 
 function MintForm() {
+  const { address } = useAccount();
+
+  // Define the `useReadContract` hook for `checkId`
+  const { refetch: checkId } = useReadContract({
+    address: contractConfig.address,
+    abi: contractConfig.abi,
+    functionName: "checkId",
+    args: [BigInt(0)], // Initial value, will be overridden when refetching
+  });
+
+  // Define the `useWriteContract` hook for `mintNFT`
+  const { writeContractAsync: mintNFT } = useWriteContract();
+
   // SUBMIT HANDLE
   const handleSubmit = async (
     values: MintFormValues,
-    { setSubmitting }: FormikHelpers<MintFormValues>
+    { setSubmitting, resetForm }: FormikHelpers<MintFormValues>
   ) => {
-    console.log("Form Submitted", values);
-    setSubmitting(false);
+    try {
+      // Step 1: Generate a unique NFT ID
+      const nftId = await generateUniqueId(async () => {
+        const { data } = await checkId();
+        return data as boolean;
+      });
+
+      // Step 2: Store NFT metadata in the backend
+      const metadataUrl = `${window.location.origin}/api/get/${nftId}`; // URL to fetch NFT metadata
+      await axios.post(`${request}/api/mint/store`, {
+        nftName: values.nftName,
+        nftDescription: values.nftDescription,
+        nftImageUrl: values.nftImageUrl,
+        nftId: Number(nftId),
+        userWalletAddress: address,
+      });
+
+      // Step 3: Mint the NFT by interacting with the smart contract
+      await mintNFT({
+        address: contractConfig.address,
+        abi: contractConfig.abi,
+        functionName: "mint",
+        args: [nftId, metadataUrl],
+      });
+
+      toast.success("NFT minted successfully!");
+      resetForm();
+    } catch (error) {
+      console.error("Failed to mint NFT:", error);
+      toast.error("Failed to mint NFT. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -131,7 +181,7 @@ function MintForm() {
                           {isSubmitting ? (
                             <span className="a_flex">
                               <i className="fa fa-spinner fa-spin"></i>
-                              Submitting...
+                              Minting...
                             </span>
                           ) : (
                             <span className="logo_text a_flex">

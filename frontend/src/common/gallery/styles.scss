@@ -1,6 +1,7 @@
 .gallery_component {
   color: var(--color-white);
   margin-bottom: 50px;
+
   .content {
     .gallery_cards {
       margin-top: 25px;
@@ -65,4 +66,15 @@
       }
     }
   }
+}
+.not_found {
+  background-color: var(--color-dark-light-bg);
+  width: 100% !important;
+  min-height: 90px;
+  margin-top: 10px;
+  border-radius: 12px;
+  color: var(--color-text-dull);
+  font-size: 15px;
+  padding: 20px;
+  text-align: center;
 }

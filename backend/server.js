@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 });
 
 //Routes
-app.use("/api/nft", mintingRouter);
+app.use("/api/mint", mintingRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
