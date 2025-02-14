@@ -14,6 +14,11 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.4",
     "@mui/material": "^6.4.4",
+    "@rainbow-me/rainbowkit": "^2.2.3",
+    "@reown/walletkit": "^1.2.0",
+    "@tanstack/react-query": "^5.66.0",
+    "@walletconnect/core": "^2.18.0",
+    "@walletconnect/utils": "^2.18.0",
     "axios": "^1.7.9",
     "formik": "^2.4.6",
     "react": "^19.0.0",
@@ -23,6 +28,8 @@
     "react-toastify": "^11.0.3",
     "react-web-share": "^2.0.2",
     "sass": "^1.85.0",
+    "viem": "^2.23.2",
+    "wagmi": "^2.14.11",
     "yup": "^1.6.1"
   },
   "devDependencies": {

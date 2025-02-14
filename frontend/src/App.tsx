@@ -1,5 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "@rainbow-me/rainbowkit/styles.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import NotFoundScreen from "./utilities/404 error/PageNotFound";

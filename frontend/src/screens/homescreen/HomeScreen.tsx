@@ -1,7 +1,7 @@
 import MintForm from "../../components/form/mintnft/MintForm";
 import { Helmet } from "react-helmet-async";
 import Intro from "../../components/mint home/intro/Intro";
-import Gallery from "../../common/navbar/gallery/Gallery";
+import Gallery from "../../common/gallery/Gallery";
 import s1 from "../../assets/home/s1.png";
 import s2 from "../../assets/home/s2.png";
 import s3 from "../../assets/home/s3.png";
