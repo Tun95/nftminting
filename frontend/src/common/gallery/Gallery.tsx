@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { request } from "../../base url/BaseUrl";
+import { Fade } from "react-awesome-reveal";
 
 interface NFT {
   nftId: number;
@@ -48,18 +49,20 @@ function Gallery() {
             </span>
           )}
           {nfts.length > 0 && (
-            <div className="gallery_cards">
-              {nfts.map((nft) => (
-                <GalleryCard
-                  key={nft.nftId}
-                  nftId={nft.nftId}
-                  img={nft.nftImageUrl}
-                  title={nft.nftName}
-                  status="old" // You can dynamically set this based on the NFT's creation date
-                  description={nft.nftDescription}
-                />
-              ))}
-            </div>
+            <Fade cascade damping={0.2}>
+              <div className="gallery_cards">
+                {nfts.map((nft) => (
+                  <GalleryCard
+                    key={nft.nftId}
+                    nftId={nft.nftId}
+                    img={nft.nftImageUrl}
+                    title={nft.nftName}
+                    status="old" // You can dynamically set this based on the NFT's creation date
+                    description={nft.nftDescription}
+                  />
+                ))}
+              </div>
+            </Fade>
           )}
         </div>
       </div>

@@ -9,6 +9,7 @@ import axios from "axios";
 import { generateUniqueId } from "../../../utilities/configs/generateUniqueId";
 import { toast } from "react-toastify";
 import { request } from "../../../base url/BaseUrl";
+import { ErrorResponse, getError } from "../../../utilities/utils/Utils";
 
 // Initial values
 const initialValues = {
@@ -48,7 +49,7 @@ function MintForm() {
 
       // Step 2: Store NFT metadata in the backend
       const metadataUrl = `${window.location.origin}/api/get/${nftId}`;
-      await axios.post(`${request}/api/mint/store`, {
+      const metadataResponse = await axios.post(`${request}/api/mint/store`, {
         nftName: values.nftName,
         nftDescription: values.nftDescription,
         nftImageUrl: values.nftImageUrl,
@@ -56,23 +57,31 @@ function MintForm() {
         userWalletAddress: address,
       });
 
+      if (metadataResponse.status !== 200) {
+        throw new Error("Failed to store metadata in the backend.");
+      }
+
       console.log("Metadata stored at:", metadataUrl);
 
       console.log("Minting NFT...");
 
       // Step 3: Mint the NFT by interacting with the smart contract
-      await mintNFT({
+      const tx = await mintNFT({
         address: contractConfig.address,
         abi: contractConfig.abi,
         functionName: "mint",
         args: [nftId, metadataUrl],
       });
 
+      if (!tx) {
+        throw new Error("Failed to mint NFT. Transaction not completed.");
+      }
+
       toast.success("NFT minted successfully!");
       resetForm();
     } catch (error) {
       console.error("Failed to mint NFT:", error);
-      toast.error("Failed to mint NFT. Please try again.");
+      toast.error(getError(error as ErrorResponse));
     } finally {
       setSubmitting(false);
     }
