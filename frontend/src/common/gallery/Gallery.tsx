@@ -5,6 +5,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { request } from "../../base url/BaseUrl";
 import { Fade } from "react-awesome-reveal";
+import LoadingBox from "../../utilities/message loading/LoadingBox";
+import MessageBox from "../../utilities/message loading/MessageBox";
 
 interface NFT {
   nftId: number;
@@ -17,6 +19,8 @@ interface NFT {
 function Gallery() {
   const { address } = useAccount();
   const [nfts, setNfts] = useState<NFT[]>([]);
+  const [loading, setLoading] = useState(true); // Add a loading state
+  const [error, setError] = useState(""); // Add an error state
 
   // Fetch NFTs owned by the connected wallet
   useEffect(() => {
@@ -30,6 +34,9 @@ function Gallery() {
         }
       } catch (error) {
         console.error("Failed to fetch NFTs:", error);
+        setError("Failed to fetch NFTs. Please try again later."); // Set the error message
+      } finally {
+        setLoading(false); // Set loading to false after the request completes
       }
     };
 
@@ -43,12 +50,15 @@ function Gallery() {
           <div className="header">
             <h2>Your NFT Gallery</h2>
           </div>
-          {nfts.length === 0 && (
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : nfts.length === 0 ? (
             <span className="not_found l_flex">
               <p>No NFTs found. Mint your first NFT using the widget above.</p>
             </span>
-          )}
-          {nfts.length > 0 && (
+          ) : (
             <Fade cascade damping={0.2}>
               <div className="gallery_cards">
                 {nfts.map((nft) => (
@@ -57,7 +67,7 @@ function Gallery() {
                     nftId={nft.nftId}
                     img={nft.nftImageUrl}
                     title={nft.nftName}
-                    status="old" // You can dynamically set this based on the NFT's creation date
+                    status="old"
                     description={nft.nftDescription}
                   />
                 ))}
