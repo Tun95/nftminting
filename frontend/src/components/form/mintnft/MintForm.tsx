@@ -26,7 +26,7 @@ function MintForm() {
     address: contractConfig.address,
     abi: contractConfig.abi,
     functionName: "checkId",
-    args: [BigInt(0)],
+    args: [BigInt(0)], // Initial value, will be overridden when refetching
   });
 
   // Define the `useWriteContract` hook for `mintNFT`
@@ -43,13 +43,18 @@ function MintForm() {
         const { data } = await checkId();
         return data as boolean;
       });
-      console.log("NFT ID generated:", nftId);
 
-      console.log("Storing metadata...");
+      // Step 2: Mint the NFT by interacting with the smart contract
+      const metadataUrl = `${window.location.origin}/api/get/${nftId}`; // URL to fetch NFT metadata
+      await mintNFT({
+        address: contractConfig.address,
+        abi: contractConfig.abi,
+        functionName: "mint",
+        args: [nftId, metadataUrl],
+      });
 
-      // Step 2: Store NFT metadata in the backend
-      const metadataUrl = `${window.location.origin}/api/get/${nftId}`;
-      const metadataResponse = await axios.post(`${request}/api/mint/store`, {
+      // Step 3: Store NFT metadata in the backend only after successful minting
+      const storeResponse = await axios.post(`${request}/api/mint/store`, {
         nftName: values.nftName,
         nftDescription: values.nftDescription,
         nftImageUrl: values.nftImageUrl,
@@ -57,38 +62,27 @@ function MintForm() {
         userWalletAddress: address,
       });
 
-      if (metadataResponse.status !== 200) {
-        throw new Error("Failed to store metadata in the backend.");
-      }
-
-      console.log("Metadata stored at:", metadataUrl);
-
-      console.log("Minting NFT...");
-
-      // Step 3: Mint the NFT by interacting with the smart contract
-      const tx = await mintNFT({
-        address: contractConfig.address,
-        abi: contractConfig.abi,
-        functionName: "mint",
-        args: [nftId, metadataUrl],
-      });
-
-      if (!tx) {
-        throw new Error("Failed to mint NFT. Transaction not completed.");
-      }
-
-      toast.success("NFT minted successfully!");
+      toast.success(storeResponse.data.message);
       resetForm();
+      setSubmitting(false);
     } catch (error) {
       console.error("Failed to mint NFT:", error);
-      toast.error(getError(error as ErrorResponse));
-    } finally {
-      setSubmitting(false);
+
+      // Narrow down the error for user-cancelled transactions
+      if (
+        error instanceof Error &&
+        error.message.includes("User rejected the request")
+      ) {
+        toast.error("Transaction was cancelled by the user.");
+      } else {
+        // Handle other errors
+        toast.error(getError(error as ErrorResponse));
+      }
     }
   };
 
   return (
-    <div className="container" id="intro">
+    <div className="container">
       <div className="mint_form_box l_flex">
         <div className="mint_content_box">
           <div className="menu_header">
