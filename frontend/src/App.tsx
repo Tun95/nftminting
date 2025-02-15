@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path="*" element={<NotFoundScreen />} />
           <Route path="/" element={<HomeScreen />}></Route>
-          <Route path="/success" element={<MintSuccessScreen />}></Route>
+          <Route path="/success/:id" element={<MintSuccessScreen />}></Route>
         </Routes>
       </div>
     </>

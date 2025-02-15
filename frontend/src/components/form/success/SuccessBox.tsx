@@ -2,11 +2,30 @@ import { FlowbiteShareNodesSolid } from "../../../assets/icons/Index";
 import "./styles.scss";
 import DoneIcon from "@mui/icons-material/Done";
 import logo from "../../../assets/home/logo.png";
-import s1 from "../../../assets/home/s1.png";
 import { RWebShare } from "react-web-share";
 import { pageURL } from "../../../base url/BaseUrl";
+import { useNavigate } from "react-router-dom";
+import s1 from "../../../assets/home/s1.png";
 
-function SuccessBox() {
+interface NFT {
+  nftId: number;
+  nftName: string;
+  nftDescription: string;
+  nftImageUrl: string;
+}
+
+interface SuccessBoxProps {
+  nft: NFT;
+}
+
+function SuccessBox({ nft }: SuccessBoxProps) {
+  const navigate = useNavigate();
+
+  // Handle "Mint Another" button click
+  const handleMintAnother = () => {
+    navigate("/");
+  };
+
   return (
     <div className="container">
       <div className="mint_form_box mint_success_form_box l_flex">
@@ -26,16 +45,21 @@ function SuccessBox() {
           </div>
           <div className="card">
             <div className="img">
-              <img src={s1} alt="" />
+              <img
+                src={nft.nftImageUrl || s1}
+                alt={nft.nftName}
+                onError={(e) => {
+                  e.currentTarget.src = s1; // Fallback image
+                }}
+              />
             </div>
             <div className="fields">
-              {" "}
               <div className="gen_field nft_name">
                 <div className="label">
                   <small>NFT Name</small>
                 </div>
                 <div className="text">
-                  <h5>Celestial Harmony #004</h5>
+                  <h5>{nft.nftName}</h5>
                 </div>
               </div>
               <div className="gen_field description">
@@ -44,10 +68,7 @@ function SuccessBox() {
                 </div>
                 <div className="text">
                   <small>
-                    <p>
-                      A mesmerizing blend of cosmic elements and digital
-                      artistry
-                    </p>
+                    <p>{nft.nftDescription}</p>
                   </small>
                 </div>
               </div>
@@ -56,7 +77,7 @@ function SuccessBox() {
                   <small>NFT ID</small>
                 </div>
                 <div className="text">
-                  <p>#8F3E2A1 D9C</p>
+                  <p>#{nft.nftId}</p>
                 </div>
               </div>
             </div>
@@ -65,9 +86,9 @@ function SuccessBox() {
             <div className="left">
               <RWebShare
                 data={{
-                  text: `share`,
-                  url: `${pageURL}/success/${"id"}`,
-                  title: "title",
+                  text: `Check out my new NFT: ${nft.nftName}`,
+                  url: `${pageURL}/success/${nft.nftId}`,
+                  title: nft.nftName,
                 }}
               >
                 <button className="main_btn l_flex">
@@ -77,7 +98,7 @@ function SuccessBox() {
               </RWebShare>
             </div>
             <div className="right">
-              <button className="main_btn l_flex">
+              <button className="main_btn l_flex" onClick={handleMintAnother}>
                 <img src={logo} alt="logo_icon" className="logo_icon" />
                 <p>Mint Another</p>
               </button>

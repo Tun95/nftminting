@@ -52,6 +52,7 @@ function Gallery() {
               {nfts.map((nft) => (
                 <GalleryCard
                   key={nft.nftId}
+                  nftId={nft.nftId}
                   img={nft.nftImageUrl}
                   title={nft.nftName}
                   status="old" // You can dynamically set this based on the NFT's creation date
