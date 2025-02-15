@@ -13,7 +13,7 @@ function HomeScreen() {
         <div className="home_content">
           <Intro />
           <MintForm />
-          <Gallery  />
+          <Gallery />
         </div>
       </div>
     </>

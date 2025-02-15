@@ -25,7 +25,7 @@ function MintForm() {
     address: contractConfig.address,
     abi: contractConfig.abi,
     functionName: "checkId",
-    args: [BigInt(0)], // Initial value, will be overridden when refetching
+    args: [BigInt(0)],
   });
 
   // Define the `useWriteContract` hook for `mintNFT`
@@ -42,9 +42,12 @@ function MintForm() {
         const { data } = await checkId();
         return data as boolean;
       });
+      console.log("NFT ID generated:", nftId);
+
+      console.log("Storing metadata...");
 
       // Step 2: Store NFT metadata in the backend
-      const metadataUrl = `${window.location.origin}/api/get/${nftId}`; // URL to fetch NFT metadata
+      const metadataUrl = `${window.location.origin}/api/get/${nftId}`;
       await axios.post(`${request}/api/mint/store`, {
         nftName: values.nftName,
         nftDescription: values.nftDescription,
@@ -52,6 +55,10 @@ function MintForm() {
         nftId: Number(nftId),
         userWalletAddress: address,
       });
+
+      console.log("Metadata stored at:", metadataUrl);
+
+      console.log("Minting NFT...");
 
       // Step 3: Mint the NFT by interacting with the smart contract
       await mintNFT({
@@ -72,7 +79,7 @@ function MintForm() {
   };
 
   return (
-    <div className="container">
+    <div className="container" id="intro">
       <div className="mint_form_box l_flex">
         <div className="mint_content_box">
           <div className="menu_header">

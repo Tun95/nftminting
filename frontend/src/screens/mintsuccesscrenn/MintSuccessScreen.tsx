@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { request } from "../../base url/BaseUrl";
+import LoadingBox from "../../utilities/message loading/LoadingBox";
+import MessageBox from "../../utilities/message loading/MessageBox";
 
 interface NFT {
   nftId: number;
@@ -45,9 +47,11 @@ function MintSuccessScreen() {
         <div className="home_content">
           <Intro />
           {loading ? (
-            <p>Loading...</p>
+            <LoadingBox></LoadingBox>
           ) : error ? (
-            <p>{error}</p>
+            <p>
+              <MessageBox variant="danger">{error}</MessageBox>
+            </p>
           ) : nft ? (
             <SuccessBox nft={nft} />
           ) : (

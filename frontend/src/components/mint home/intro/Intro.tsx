@@ -23,10 +23,10 @@ function Intro() {
           <div className="btns l_flex">
             <div className="start_btn">
               {" "}
-              <button className="main_btn l_flex">
+              <a href="/#intro" className="main_btn l_flex">
                 <Fa6SolidRocket className="icon" />
                 <h5>Start Creating</h5>
-              </button>
+              </a>
             </div>
             <div className="watch_btn">
               <button className="main_btn l_flex">

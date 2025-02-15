@@ -38,11 +38,15 @@
     }
     .btns {
       gap: 15px;
+
       .main_btn {
         padding: 13px 0px;
         width: 150px;
         border-radius: 8px;
         gap: 8px;
+      }
+      a {
+        padding: 11px 0px !important;
       }
       .watch_btn {
         .main_btn {
